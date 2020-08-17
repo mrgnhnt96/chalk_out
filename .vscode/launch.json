@@ -1,0 +1,38 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "4.7 in",
+      "deviceId": "emulator-5554",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "6.3 in",
+      "deviceId": "emulator-5556",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "5.5 in",
+      "deviceId": "emulator-5558",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "Actual Phone",
+      "deviceId": "moto g 6",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "Galaxy Phone",
+      "deviceId": "SM J727U",
+      "request": "launch",
+      "type": "dart"
+    }
+  ]
+}
