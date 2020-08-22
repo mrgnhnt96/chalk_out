@@ -5,4 +5,4 @@ abstract class ParticipatedState {}
 
 class ParticipatedInitial extends ParticipatedState {}
 
-class SettingsInitial extends ParticipatedState {}
+class SettingsPageInitial extends ParticipatedState {}

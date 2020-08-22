@@ -43,19 +43,24 @@ class _ParticipatedChalksScreenState extends State<ParticipatedChalksScreen> wit
         listener: (context, state) {},
         child: BlocBuilder<ParticipatedBloc, ParticipatedState>(
           builder: (context, state) {
-            if (state is SettingsInitial) {
-              return SettingsScreen();
+            // ignore: close_sinks
+            final participatedBloc = BlocProvider.of<ParticipatedBloc>(context);
+            if (state is SettingsPageInitial) {
+              return SettingsScreen(
+                participatedBloc: participatedBloc,
+              );
             }
-            return buildAppBar(context: context);
+            return buildAppBar(
+              context: context,
+              participatedBloc: participatedBloc,
+            );
           },
         ),
       ),
     );
   }
 
-  Widget buildAppBar({BuildContext context}) {
-    // ignore: close_sinks
-    final participatedBloc = BlocProvider.of<ParticipatedBloc>(context);
+  Widget buildAppBar({BuildContext context, ParticipatedBloc participatedBloc}) {
     return DefaultTabController(
       length: 3,
       child: Scaffold(

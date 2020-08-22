@@ -8,3 +8,7 @@ abstract class ParticipatedEvent {
 class SettingButtonPressed extends ParticipatedEvent {
   List<Object> get props => [];
 }
+
+class SettingCloseButtonPressed extends ParticipatedEvent {
+  List<Object> get props => [];
+}

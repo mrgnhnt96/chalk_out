@@ -17,7 +17,9 @@ class ParticipatedBloc extends Bloc<ParticipatedEvent, ParticipatedState> {
     ParticipatedEvent event,
   ) async* {
     if (event is SettingButtonPressed) {
-      yield SettingsInitial();
+      yield SettingsPageInitial();
+    } else if (event is SettingCloseButtonPressed) {
+      yield ParticipatedInitial();
     }
   }
 }
