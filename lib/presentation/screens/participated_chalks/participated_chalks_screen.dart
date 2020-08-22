@@ -1,5 +1,9 @@
-import 'package:chalk_out/presentation/widgets/core/chalk_cards.dart';
+import 'package:chalk_out/presentation/blocs/bloc/participated_bloc.dart';
+import 'package:chalk_out/presentation/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'components/chalk_card_lists.dart';
 
 class ParticipatedChalksScreen extends StatefulWidget {
   static const routeName = '/participated_chalk_screen';
@@ -11,71 +15,110 @@ class ParticipatedChalksScreen extends StatefulWidget {
   _ParticipatedChalksScreenState createState() => _ParticipatedChalksScreenState();
 }
 
-class _ParticipatedChalksScreenState extends State<ParticipatedChalksScreen> {
+class _ParticipatedChalksScreenState extends State<ParticipatedChalksScreen> with SingleTickerProviderStateMixin {
+  int itemCount = 5;
+
+  List<Widget> tabList;
+  TabController controller;
+
+  @override
+  void initState() {
+    tabList = [
+      buildParticipatedScreen(0),
+      buildParticipatedScreen(1),
+      buildParticipatedScreen(2),
+    ];
+    controller = TabController(
+      vsync: this,
+      length: tabList.length,
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Text('Chalk Out'),
+    return BlocProvider(
+      create: (context) => ParticipatedBloc(),
+      child: BlocListener<ParticipatedBloc, ParticipatedState>(
+        listener: (context, state) {},
+        child: BlocBuilder<ParticipatedBloc, ParticipatedState>(
+          builder: (context, state) {
+            if (state is SettingsInitial) {
+              return SettingsScreen();
+            }
+            return buildAppBar(context: context);
+          },
         ),
-        leading: Icon(
-          Icons.notifications,
-        ),
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: Icon(Icons.settings),
-          )
-        ],
       ),
-      body: SingleChildScrollView(
-        physics: ClampingScrollPhysics(),
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 8),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 16, 0, 8),
-                    child: Text('Your Turn (Hidden if None)'),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: ChalkCards(),
-                  ),
-                ],
+    );
+  }
+
+  Widget buildAppBar({BuildContext context}) {
+    // ignore: close_sinks
+    final participatedBloc = BlocProvider.of<ParticipatedBloc>(context);
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+          floatingActionButton: SizedBox(
+            height: 40,
+            child: FloatingActionButton(
+              child: Center(
+                child: Icon(Icons.add),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 16, 0, 8),
-                    child: Text('Live Chalks (Always show)'),
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 16, 0, 8),
-                    child: Text(
-                      'Past Chalks',
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ],
-              ),
+              onPressed: () {},
+            ),
+          ),
+          appBar: AppBar(
+            bottom: TabBar(
+              labelPadding: EdgeInsets.symmetric(vertical: 8),
+              tabs: [
+                Text('Your Turn'),
+                Text('Live Chalks'),
+                Text('Past Chalks'),
+              ],
+            ),
+            title: Center(
+              child: Text('Chalk Out'),
+            ),
+            leading: Icon(
+              Icons.notifications,
+            ),
+            actions: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: IconButton(
+                  icon: Icon(Icons.settings),
+                  onPressed: () {
+                    participatedBloc.add(
+                      SettingButtonPressed(),
+                    );
+                  },
+                ),
+              )
             ],
           ),
-        ),
-      ),
+          body: TabBarView(children: tabList)),
+    );
+  }
+
+  Widget buildParticipatedScreen(int page) {
+    String noChalks;
+    IconData icon;
+    if (page == 0) {
+      noChalks = 'No Chalks waiting on you!';
+      icon = Icons.sentiment_very_satisfied;
+    } else if (page == 1) {
+      noChalks = 'No Live Chalks!';
+      icon = Icons.sentiment_dissatisfied;
+    } else if (page == 2) {
+      noChalks = 'No Past Chalks!';
+      icon = Icons.sentiment_dissatisfied;
+    }
+
+    return MainChalkSection(
+      icon: icon,
+      itemCount: itemCount,
+      noChalks: noChalks,
     );
   }
 }
