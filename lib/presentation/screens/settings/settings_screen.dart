@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chalk_out/presentation/blocs/participated_chalks/participated_bloc.dart';
 import 'package:chalk_out/presentation/blocs/settings/settings_bloc.dart';
 
+import 'components/bottom_sheet.dart';
 import 'components/chalk_count.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -36,17 +37,26 @@ class SettingsScreen extends StatelessWidget {
     BuildContext context,
     SettingsBloc settingsBloc,
     SettingsState state,
+    String initials,
   }) {
     TextEditingController username;
     if (state is SettingsInitial) {
+      initials = state.usernameController.text.toString().substring(0, 2).toUpperCase();
       username = state.usernameController;
     } else if (state is EditUsernameSuccess) {
-      username = state.newUsernameController;
+      final editName = state.newUsernameController;
+
+      username = editName;
+
+      initials = editName.text.toString().substring(0, 2).toUpperCase();
+    } else {
+      initials = '##';
     }
 
     String clalks = 'chalks';
     String wins = 'wins';
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           SafeArea(
@@ -78,6 +88,8 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ),
                   Container(
+                    // height: 70,
+                    // wi: 70,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.blue,
@@ -85,28 +97,40 @@ class SettingsScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
-                        'TH',
+                        initials,
                         style: TextStyle(fontSize: 32),
                       ),
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width * .50,
                     padding: EdgeInsets.fromLTRB(0, 16, 0, 8),
-                    child: TextField(
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
                       onTap: () {
                         settingsBloc.add(
                           EditUsernamePressed(),
                         );
                       },
                       controller: username,
-                      // enabled: (state is EditUsernameInProgress) ? true : false,
-                      // readOnly: (state is EditUsernameInProgress) ? true : false,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderSide: BorderSide.none,
                         ),
                       ),
+                      onFieldSubmitted: (value) {
+                        return settingsBloc.add(
+                          EditUsernameCompleted(
+                            newUsername: value,
+                          ),
+                        );
+                      },
+                      validator: (value) {
+                        if (value.length < 3) {
+                          return 'Please enter a Username with 3 or more characters';
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
                   ),
                   Padding(
@@ -132,38 +156,9 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: DraggableScrollableSheet(
-              initialChildSize: 0.1,
-              maxChildSize: 0.5,
-              minChildSize: 0.1,
-              builder: (context, ScrollController controller) {
-                return SingleChildScrollView(
-                  physics: ClampingScrollPhysics(),
-                  controller: controller,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30),
-                      ),
-                    ),
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    height: MediaQuery.of(context).size.height * .5,
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          'Settings',
-                          style: TextStyle(fontSize: 24),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
+          SettingsBottomSheet(
+            state: state,
+            settingsBloc: settingsBloc,
           ),
         ],
       ),

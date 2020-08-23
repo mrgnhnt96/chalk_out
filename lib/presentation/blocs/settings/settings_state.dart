@@ -20,3 +20,9 @@ class EditUsernameSuccess extends SettingsState {
 
   EditUsernameSuccess({@required this.newUsernameController});
 }
+
+class ManangeNotificationsInProgress extends SettingsState {
+  // final TextEditingController currentUsernameController;
+
+  // ManangeNotificationsInProgress({@required this.currentUsernameController});
+}

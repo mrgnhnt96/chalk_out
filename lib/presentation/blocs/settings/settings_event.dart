@@ -10,3 +10,7 @@ class EditUsernameCompleted extends SettingsEvent {
 
   EditUsernameCompleted({@required this.newUsername});
 }
+
+class SettingsDropDownPressed extends SettingsEvent {}
+
+class SettingsCloseNotificationsPressed extends SettingsEvent {}

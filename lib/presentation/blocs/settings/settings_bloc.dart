@@ -27,8 +27,14 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     if (event is EditUsernamePressed) {
       yield EditUsernameInProgress();
     } else if (event is EditUsernameCompleted) {
-      usernameController.text = event.newUsername;
+      if (event.newUsername.isNotEmpty) {
+        usernameController.text = event.newUsername;
+      }
       yield EditUsernameSuccess(newUsernameController: usernameController);
+    } else if (event is SettingsDropDownPressed) {
+      yield ManangeNotificationsInProgress();
+    } else if (event is SettingsCloseNotificationsPressed) {
+      yield SettingsInitial(usernameController: usernameController);
     }
   }
 }
