@@ -1,19 +1,36 @@
-import 'package:flutter/material.dart';
-
 import 'package:chalk_out/presentation/blocs/settings/settings_bloc.dart';
+import 'package:chalk_out/presentation/blocs/profile/profile_bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsBottomSheet extends StatelessWidget {
-  final SettingsBloc settingsBloc;
-  final SettingsState state;
+  final ProfileBloc profileBloc;
+  final ProfileState profileState;
   const SettingsBottomSheet({
     Key key,
-    @required this.settingsBloc,
-    @required this.state,
+    @required this.profileBloc,
+    @required this.profileState,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Function onPressed;
+    return BlocProvider(
+      create: (context) => SettingsBloc(),
+      child: BlocListener(
+        listener: (context, state) {},
+        child: BlocBuilder(
+          builder: (context, state) {
+            // ignore: close_sinks
+            final settingsBloc = BlocProvider.of<SettingsBloc>(context);
+
+            return buildBottomSheet(settingsBloc: settingsBloc, profileBloc: profileBloc);
+          },
+        ),
+      ),
+    );
+  }
+
+  Align buildBottomSheet({SettingsBloc settingsBloc, ProfileBloc profileBloc}) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: DraggableScrollableSheet(
@@ -46,11 +63,15 @@ class SettingsBottomSheet extends StatelessWidget {
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
-                    child: (state is ManangeNotificationsInProgress)
+                    child: (profileState is ManangeNotificationsInProgress)
                         ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               buildNotifications(event: SettingsCloseNotificationsPressed(), icon: Icons.arrow_drop_up),
                               Text('Chalk Finished'),
+                              SizedBox(
+                                height: 8,
+                              ),
                               Text('Your Turn'),
                             ],
                           )
@@ -68,7 +89,7 @@ class SettingsBottomSheet extends StatelessWidget {
     );
   }
 
-  Row buildNotifications({SettingsEvent event, IconData icon}) {
+  Row buildNotifications({SettingsEvent event, IconData icon, SettingsBloc settingsBloc}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[

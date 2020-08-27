@@ -1,8 +1,8 @@
+import 'package:chalk_out/presentation/blocs/profile/profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:chalk_out/presentation/blocs/participated_chalks/participated_bloc.dart';
-import 'package:chalk_out/presentation/blocs/settings/settings_bloc.dart';
 
 import 'components/bottom_sheet.dart';
 import 'components/chalk_count.dart';
@@ -19,14 +19,14 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SettingsBloc(),
-      child: BlocListener<SettingsBloc, SettingsState>(
+      create: (context) => ProfileBloc(),
+      child: BlocListener<ProfileBloc, ProfileState>(
         listener: (context, state) {},
-        child: BlocBuilder<SettingsBloc, SettingsState>(
+        child: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {
             // ignore: close_sinks
-            final settingsBloc = BlocProvider.of<SettingsBloc>(context);
-            return buildPage(context: context, settingsBloc: settingsBloc, state: state);
+            final profileBloc = BlocProvider.of<ProfileBloc>(context);
+            return buildPage(context: context, profileBloc: profileBloc, state: state);
           },
         ),
       ),
@@ -35,12 +35,12 @@ class SettingsScreen extends StatelessWidget {
 
   Scaffold buildPage({
     BuildContext context,
-    SettingsBloc settingsBloc,
-    SettingsState state,
+    ProfileBloc profileBloc,
+    ProfileState state,
     String initials,
   }) {
     TextEditingController username;
-    if (state is SettingsInitial) {
+    if (state is ProfileInitial) {
       initials = state.usernameController.text.toString().substring(0, 2).toUpperCase();
       username = state.usernameController;
     } else if (state is EditUsernameSuccess) {
@@ -107,7 +107,7 @@ class SettingsScreen extends StatelessWidget {
                     child: TextFormField(
                       textAlign: TextAlign.center,
                       onTap: () {
-                        settingsBloc.add(
+                        profileBloc.add(
                           EditUsernamePressed(),
                         );
                       },
@@ -118,7 +118,7 @@ class SettingsScreen extends StatelessWidget {
                         ),
                       ),
                       onFieldSubmitted: (value) {
-                        return settingsBloc.add(
+                        return profileBloc.add(
                           EditUsernameCompleted(
                             newUsername: value,
                           ),
@@ -157,8 +157,8 @@ class SettingsScreen extends StatelessWidget {
             ),
           ),
           SettingsBottomSheet(
-            state: state,
-            settingsBloc: settingsBloc,
+            profileState: state,
+            profileBloc: profileBloc,
           ),
         ],
       ),
