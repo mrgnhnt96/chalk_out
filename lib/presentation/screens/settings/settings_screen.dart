@@ -18,7 +18,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider<ProfileBloc>(
       create: (context) => ProfileBloc(),
       child: BlocListener<ProfileBloc, ProfileState>(
         listener: (context, state) {},
@@ -26,6 +26,7 @@ class SettingsScreen extends StatelessWidget {
           builder: (context, state) {
             // ignore: close_sinks
             final profileBloc = BlocProvider.of<ProfileBloc>(context);
+            print(state);
             return buildPage(context: context, profileBloc: profileBloc, state: state);
           },
         ),
