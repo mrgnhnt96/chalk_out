@@ -26,8 +26,12 @@ class SettingsBottomSheet extends StatelessWidget {
           builder: (context, state) {
             // ignore: close_sinks
             final settingsBloc = BlocProvider.of<SettingsBloc>(context);
-
-            return buildBottomSheet(settingsBloc: settingsBloc, profileBloc: profileBloc, context: context, state: state);
+            return buildBottomSheet(
+              settingsBloc: settingsBloc,
+              profileBloc: profileBloc,
+              context: context,
+              state: state,
+            );
           },
         ),
       ),
@@ -35,7 +39,11 @@ class SettingsBottomSheet extends StatelessWidget {
   }
 
   Widget buildBottomSheet({SettingsBloc settingsBloc, ProfileBloc profileBloc, BuildContext context, SettingsState state}) {
-    print(state);
+    //TODO connect remove ads bool
+    // bool removeAdsBool = false;
+    // if (state is ManangeNotificationsInProgress){
+    //   removeAdsBool = state.removeAdsState;
+    // }
     return Align(
       alignment: Alignment.bottomCenter,
       child: DraggableScrollableSheet(
@@ -77,7 +85,11 @@ class SettingsBottomSheet extends StatelessWidget {
                                 icon: Icons.arrow_drop_up,
                                 settingsBloc: settingsBloc,
                               ),
-                              buildOptions(chalkFinishedBool: state.chalkFinishedState, yourTurnBool: state.yourTurnState),
+                              buildOptions(
+                                chalkFinishedBool: state.chalkFinishedState,
+                                yourTurnBool: state.yourTurnState,
+                                settingsBloc: settingsBloc,
+                              ),
                             ],
                           )
                         : buildNotifications(
@@ -85,6 +97,23 @@ class SettingsBottomSheet extends StatelessWidget {
                             icon: Icons.arrow_drop_down,
                             settingsBloc: settingsBloc,
                           ),
+                  ),
+                  Divider(
+                    thickness: 2,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                    child: NotificationOption(
+                      title: 'Remove Ads',
+                      isOn: false,
+                      onTap: () {
+                        // settingsBloc.add(
+                        // RemoveAdsPressed(
+                        //   removeAdsBool: !removeAds,
+                        // ),
+                        // );
+                      },
+                    ),
                   ),
                   Divider(
                     thickness: 2,
@@ -98,20 +127,34 @@ class SettingsBottomSheet extends StatelessWidget {
     );
   }
 
-  Column buildOptions({bool chalkFinishedBool, bool yourTurnBool}) {
+  Column buildOptions({@required bool chalkFinishedBool, @required bool yourTurnBool, @required SettingsBloc settingsBloc}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         NotificationOption(
-          onTap: () {},
+          isOn: chalkFinishedBool,
+          onTap: () {
+            settingsBloc.add(
+              ChalkFinishedNotificationPressed(
+                chalkFinishedBool: !chalkFinishedBool,
+              ),
+            );
+          },
           title: 'Chalk Finished',
         ),
         SizedBox(
           height: 8,
         ),
         NotificationOption(
+          isOn: yourTurnBool,
           title: 'Your Turn',
-          onTap: () {},
+          onTap: () {
+            settingsBloc.add(
+              YourTurnNotificationPressed(
+                yourTurnBool: !yourTurnBool,
+              ),
+            );
+          },
         ),
       ],
     );

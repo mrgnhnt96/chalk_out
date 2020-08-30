@@ -14,15 +14,41 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   static bool chalkFinishedState = true;
   static bool yourTurnState = true;
+  static bool removeAdsState = false;
 
   @override
   Stream<SettingsState> mapEventToState(
     SettingsEvent event,
   ) async* {
     if (event is SettingsDropDownPressed) {
-      yield ManangeNotificationsInProgress(chalkFinishedState: chalkFinishedState, yourTurnState: yourTurnState);
+      yield ManangeNotificationsInProgress(
+        chalkFinishedState: chalkFinishedState,
+        yourTurnState: yourTurnState,
+        removeAdsState: removeAdsState,
+      );
     } else if (event is SettingsCloseNotificationsPressed) {
       yield SettingsInitial();
+    } else if (event is ChalkFinishedNotificationPressed) {
+      chalkFinishedState = event.chalkFinishedBool;
+      yield ManangeNotificationsInProgress(
+        chalkFinishedState: chalkFinishedState,
+        yourTurnState: yourTurnState,
+        removeAdsState: removeAdsState,
+      );
+    } else if (event is YourTurnNotificationPressed) {
+      yourTurnState = event.yourTurnBool;
+      yield ManangeNotificationsInProgress(
+        chalkFinishedState: chalkFinishedState,
+        yourTurnState: yourTurnState,
+        removeAdsState: removeAdsState,
+      );
+    } else if (event is RemoveAdsPressed) {
+      removeAdsState = event.removeAdsBool;
+      yield ManangeNotificationsInProgress(
+        chalkFinishedState: chalkFinishedState,
+        yourTurnState: yourTurnState,
+        removeAdsState: removeAdsState,
+      );
     }
   }
 }

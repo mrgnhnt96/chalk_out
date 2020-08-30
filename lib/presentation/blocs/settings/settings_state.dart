@@ -8,9 +8,11 @@ class SettingsInitial extends SettingsState {}
 class ManangeNotificationsInProgress extends SettingsState {
   final bool chalkFinishedState;
   final bool yourTurnState;
+  final bool removeAdsState;
   ManangeNotificationsInProgress({
     @required this.chalkFinishedState,
     @required this.yourTurnState,
+    @required this.removeAdsState,
   });
 }
 

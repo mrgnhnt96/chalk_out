@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class NotificationOption extends StatelessWidget {
   const NotificationOption({
     @required this.title,
+    @required this.isOn,
     @required this.onTap,
     Key key,
   }) : super(key: key);
 
   final String title;
   final Function onTap;
+  final bool isOn;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class NotificationOption extends StatelessWidget {
         children: <Widget>[
           Text(title),
           Icon(
-            Icons.check_box_outline_blank,
+            isOn ? Icons.check_box : Icons.check_box_outline_blank,
             color: Colors.grey,
           ),
         ],
