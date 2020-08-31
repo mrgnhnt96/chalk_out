@@ -85,8 +85,35 @@ class _ParticipatedChalksScreenState extends State<ParticipatedChalksScreen> wit
             title: Center(
               child: Text('Chalk Out'),
             ),
-            leading: Icon(
-              Icons.notifications,
+            leading: Stack(
+              children: [
+                Center(
+                  child: Icon(
+                    Icons.notifications,
+                  ),
+                ),
+                Positioned(
+                  right: 11,
+                  top: 11,
+                  child: Container(
+                    constraints: BoxConstraints(
+                      minWidth: 14,
+                      minHeight: 14,
+                    ),
+                    padding: EdgeInsets.all(1),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.red,
+                      // borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Text(
+                      //TODO ADD NOTIFICATION COUNT
+                      '1',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ],
             ),
             actions: <Widget>[
               Padding(
