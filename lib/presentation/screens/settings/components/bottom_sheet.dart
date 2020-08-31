@@ -26,19 +26,49 @@ class SettingsBottomSheet extends StatelessWidget {
           builder: (context, state) {
             // ignore: close_sinks
             final settingsBloc = BlocProvider.of<SettingsBloc>(context);
-            return buildBottomSheet(
-              settingsBloc: settingsBloc,
-              profileBloc: profileBloc,
-              context: context,
-              state: state,
-            );
+            if (state is ManangeNotificationsInProgress) {
+              bool chalkFinishedBool = state.chalkFinishedBool;
+              bool yourTurnBool = state.yourTurnBool;
+              bool removeAdsBool = state.removeAdsBool;
+
+              return buildBottomSheet(
+                settingsBloc: settingsBloc,
+                profileBloc: profileBloc,
+                context: context,
+                state: state,
+                notificationsVisible: true,
+                yourTurnBool: yourTurnBool,
+                chalkFinishedBool: chalkFinishedBool,
+                removeAdsBool: removeAdsBool,
+              );
+            } else if (state is SettingsInitial) {
+              bool removeAdsBool = state.removeAdsBool;
+
+              return buildBottomSheet(
+                settingsBloc: settingsBloc,
+                profileBloc: profileBloc,
+                context: context,
+                state: state,
+                notificationsVisible: false,
+                removeAdsBool: removeAdsBool,
+              );
+            }
           },
         ),
       ),
     );
   }
 
-  Widget buildBottomSheet({SettingsBloc settingsBloc, ProfileBloc profileBloc, BuildContext context, SettingsState state}) {
+  Widget buildBottomSheet({
+    @required SettingsBloc settingsBloc,
+    @required ProfileBloc profileBloc,
+    @required BuildContext context,
+    @required SettingsState state,
+    @required bool notificationsVisible,
+    bool chalkFinishedBool,
+    bool yourTurnBool,
+    @required bool removeAdsBool,
+  }) {
     //TODO connect remove ads bool
     // bool removeAdsBool = false;
     // if (state is ManangeNotificationsInProgress){
@@ -76,7 +106,7 @@ class SettingsBottomSheet extends StatelessWidget {
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
-                    child: (state is ManangeNotificationsInProgress)
+                    child: notificationsVisible
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -86,8 +116,8 @@ class SettingsBottomSheet extends StatelessWidget {
                                 settingsBloc: settingsBloc,
                               ),
                               buildOptions(
-                                chalkFinishedBool: state.chalkFinishedState,
-                                yourTurnBool: state.yourTurnState,
+                                chalkFinishedBool: chalkFinishedBool,
+                                yourTurnBool: yourTurnBool,
                                 settingsBloc: settingsBloc,
                               ),
                             ],
@@ -102,21 +132,32 @@ class SettingsBottomSheet extends StatelessWidget {
                     thickness: 2,
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     child: NotificationOption(
                       title: 'Remove Ads',
-                      isOn: false,
+                      isOn: removeAdsBool,
                       onTap: () {
-                        // settingsBloc.add(
-                        // RemoveAdsPressed(
-                        //   removeAdsBool: !removeAds,
-                        // ),
-                        // );
+                        settingsBloc.add(
+                          RemoveAdsPressed(
+                            removeAdsBool: !removeAdsBool,
+                          ),
+                        );
                       },
                     ),
                   ),
                   Divider(
                     thickness: 2,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      print('Tapped!');
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      color: Colors.transparent,
+                      width: MediaQuery.of(context).size.width,
+                      child: Text('Help'),
+                    ),
                   ),
                 ],
               ),
@@ -127,7 +168,7 @@ class SettingsBottomSheet extends StatelessWidget {
     );
   }
 
-  Column buildOptions({@required bool chalkFinishedBool, @required bool yourTurnBool, @required SettingsBloc settingsBloc}) {
+  Widget buildOptions({@required bool chalkFinishedBool, @required bool yourTurnBool, @required SettingsBloc settingsBloc}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

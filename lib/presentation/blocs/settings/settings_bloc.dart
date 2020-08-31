@@ -10,7 +10,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc() : super();
 
   @override
-  SettingsState get initialState => SettingsInitial();
+  SettingsState get initialState => SettingsInitial(removeAdsBool: removeAdsState);
 
   static bool chalkFinishedState = true;
   static bool yourTurnState = true;
@@ -22,32 +22,30 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   ) async* {
     if (event is SettingsDropDownPressed) {
       yield ManangeNotificationsInProgress(
-        chalkFinishedState: chalkFinishedState,
-        yourTurnState: yourTurnState,
-        removeAdsState: removeAdsState,
+        chalkFinishedBool: chalkFinishedState,
+        yourTurnBool: yourTurnState,
+        removeAdsBool: removeAdsState,
       );
     } else if (event is SettingsCloseNotificationsPressed) {
-      yield SettingsInitial();
+      yield SettingsInitial(removeAdsBool: removeAdsState);
     } else if (event is ChalkFinishedNotificationPressed) {
       chalkFinishedState = event.chalkFinishedBool;
       yield ManangeNotificationsInProgress(
-        chalkFinishedState: chalkFinishedState,
-        yourTurnState: yourTurnState,
-        removeAdsState: removeAdsState,
+        chalkFinishedBool: chalkFinishedState,
+        yourTurnBool: yourTurnState,
+        removeAdsBool: removeAdsState,
       );
     } else if (event is YourTurnNotificationPressed) {
       yourTurnState = event.yourTurnBool;
       yield ManangeNotificationsInProgress(
-        chalkFinishedState: chalkFinishedState,
-        yourTurnState: yourTurnState,
-        removeAdsState: removeAdsState,
+        chalkFinishedBool: chalkFinishedState,
+        yourTurnBool: yourTurnState,
+        removeAdsBool: removeAdsState,
       );
     } else if (event is RemoveAdsPressed) {
       removeAdsState = event.removeAdsBool;
-      yield ManangeNotificationsInProgress(
-        chalkFinishedState: chalkFinishedState,
-        yourTurnState: yourTurnState,
-        removeAdsState: removeAdsState,
+      yield SettingsInitial(
+        removeAdsBool: removeAdsState,
       );
     }
   }
