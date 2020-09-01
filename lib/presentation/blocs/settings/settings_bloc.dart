@@ -7,14 +7,16 @@ part 'settings_event.dart';
 part 'settings_state.dart';
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
-  SettingsBloc() : super();
+  SettingsBloc()
+      : super(
+          SettingsInitial(removeAdsBool: _removeAdsBool),
+        );
 
-  @override
-  SettingsState get initialState => SettingsInitial(removeAdsBool: removeAdsState);
+  SettingsState get initialState => SettingsInitial(removeAdsBool: _removeAdsBool);
 
-  static bool chalkFinishedState = true;
-  static bool yourTurnState = true;
-  static bool removeAdsState = false;
+  static bool _chalkFinishedBool = true;
+  static bool _yourTurnBool = true;
+  static bool _removeAdsBool = false;
 
   @override
   Stream<SettingsState> mapEventToState(
@@ -22,30 +24,30 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   ) async* {
     if (event is SettingsDropDownPressed) {
       yield ManangeNotificationsInProgress(
-        chalkFinishedBool: chalkFinishedState,
-        yourTurnBool: yourTurnState,
-        removeAdsBool: removeAdsState,
+        chalkFinishedBool: _chalkFinishedBool,
+        yourTurnBool: _yourTurnBool,
+        removeAdsBool: _removeAdsBool,
       );
     } else if (event is SettingsCloseNotificationsPressed) {
-      yield SettingsInitial(removeAdsBool: removeAdsState);
+      yield SettingsInitial(removeAdsBool: _removeAdsBool);
     } else if (event is ChalkFinishedNotificationPressed) {
-      chalkFinishedState = event.chalkFinishedBool;
+      _chalkFinishedBool = event.chalkFinishedBool;
       yield ManangeNotificationsInProgress(
-        chalkFinishedBool: chalkFinishedState,
-        yourTurnBool: yourTurnState,
-        removeAdsBool: removeAdsState,
+        chalkFinishedBool: _chalkFinishedBool,
+        yourTurnBool: _yourTurnBool,
+        removeAdsBool: _removeAdsBool,
       );
     } else if (event is YourTurnNotificationPressed) {
-      yourTurnState = event.yourTurnBool;
+      _yourTurnBool = event.yourTurnBool;
       yield ManangeNotificationsInProgress(
-        chalkFinishedBool: chalkFinishedState,
-        yourTurnBool: yourTurnState,
-        removeAdsBool: removeAdsState,
+        chalkFinishedBool: _chalkFinishedBool,
+        yourTurnBool: _yourTurnBool,
+        removeAdsBool: _removeAdsBool,
       );
     } else if (event is RemoveAdsPressed) {
-      removeAdsState = event.removeAdsBool;
+      _removeAdsBool = event.removeAdsBool;
       yield SettingsInitial(
-        removeAdsBool: removeAdsState,
+        removeAdsBool: _removeAdsBool,
       );
     }
   }

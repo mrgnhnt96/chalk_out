@@ -8,17 +8,19 @@ part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  ProfileBloc() : super();
+  ProfileBloc()
+      : super(
+          ProfileInitial(usernameController: _usernameController),
+        );
 
   String username = 'Taylor Hunt';
 
-  @override
   ProfileState get initialState {
-    usernameController.text = username;
-    return ProfileInitial(usernameController: usernameController);
+    _usernameController.text = username;
+    return ProfileInitial(usernameController: _usernameController);
   }
 
-  static TextEditingController usernameController = TextEditingController();
+  static TextEditingController _usernameController = TextEditingController();
 
   @override
   Stream<ProfileState> mapEventToState(
@@ -28,9 +30,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       yield EditUsernameInProgress();
     } else if (event is EditUsernameCompleted) {
       if (event.newUsername.isNotEmpty) {
-        usernameController.text = event.newUsername;
+        _usernameController.text = event.newUsername;
       }
-      yield EditUsernameSuccess(newUsernameController: usernameController);
+      yield EditUsernameSuccess(newUsernameController: _usernameController);
     }
   }
 }

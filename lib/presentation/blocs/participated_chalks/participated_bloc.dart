@@ -7,9 +7,11 @@ part 'participated_event.dart';
 part 'participated_state.dart';
 
 class ParticipatedBloc extends Bloc<ParticipatedEvent, ParticipatedState> {
-  ParticipatedBloc() : super();
+  ParticipatedBloc()
+      : super(
+          ParticipatedInitial(),
+        );
 
-  @override
   ParticipatedState get initialState => ParticipatedInitial();
 
   @override
