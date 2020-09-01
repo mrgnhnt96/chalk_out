@@ -20,28 +20,25 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<ProfileBloc>(
       create: (context) => ProfileBloc(),
-      child: BlocListener<ProfileBloc, ProfileState>(
-        listener: (context, state) {},
-        child: BlocBuilder<ProfileBloc, ProfileState>(
-          builder: (context, state) {
-            // ignore: close_sinks
-            final profileBloc = BlocProvider.of<ProfileBloc>(context);
-            print(state);
-            return buildPage(context: context, profileBloc: profileBloc, state: state);
-          },
-        ),
+      child: BlocBuilder<ProfileBloc, ProfileState>(
+        builder: (context, state) {
+          // ignore: close_sinks
+          final profileBloc = BlocProvider.of<ProfileBloc>(context);
+          print(state);
+          return buildPage(context: context, profileBloc: profileBloc, state: state);
+        },
       ),
     );
   }
 
-  Scaffold buildPage({
+  Widget buildPage({
     BuildContext context,
     ProfileBloc profileBloc,
     ProfileState state,
     String initials,
   }) {
     TextEditingController username;
-    if (state is ProfileInitial) {
+    if (state is ProfileScreenLoaded) {
       initials = state.usernameController.text.toString().substring(0, 2).toUpperCase();
       username = state.usernameController;
     } else if (state is EditUsernameSuccess) {

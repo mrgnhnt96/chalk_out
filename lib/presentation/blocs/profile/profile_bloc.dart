@@ -8,17 +8,9 @@ part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  ProfileBloc()
-      : super(
-          ProfileInitial(usernameController: _usernameController),
-        );
+  ProfileBloc() : super(ProfileInitial());
 
   String username = 'Taylor Hunt';
-
-  ProfileState get initialState {
-    _usernameController.text = username;
-    return ProfileInitial(usernameController: _usernameController);
-  }
 
   static TextEditingController _usernameController = TextEditingController();
 
@@ -26,6 +18,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   Stream<ProfileState> mapEventToState(
     ProfileEvent event,
   ) async* {
+    if (event is ProfileScreenStart) {
+      _usernameController.text = username;
+      yield ProfileScreenLoaded(usernameController: _usernameController);
+    }
     if (event is EditUsernamePressed) {
       yield EditUsernameInProgress();
     } else if (event is EditUsernameCompleted) {

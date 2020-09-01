@@ -7,12 +7,7 @@ part 'settings_event.dart';
 part 'settings_state.dart';
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
-  SettingsBloc()
-      : super(
-          SettingsInitial(removeAdsBool: _removeAdsBool),
-        );
-
-  SettingsState get initialState => SettingsInitial(removeAdsBool: _removeAdsBool);
+  SettingsBloc() : super(SettingsInitial(removeAdsBool: _removeAdsBool));
 
   static bool _chalkFinishedBool = true;
   static bool _yourTurnBool = true;
@@ -22,7 +17,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   Stream<SettingsState> mapEventToState(
     SettingsEvent event,
   ) async* {
-    if (event is SettingsDropDownPressed) {
+    if (state is SettingsInitial) if (event is SettingsDropDownPressed) {
       yield ManangeNotificationsInProgress(
         chalkFinishedBool: _chalkFinishedBool,
         yourTurnBool: _yourTurnBool,

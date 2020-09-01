@@ -27,30 +27,24 @@ class SettingsBottomSheet extends StatelessWidget {
             // ignore: close_sinks
             final settingsBloc = BlocProvider.of<SettingsBloc>(context);
             if (state is ManangeNotificationsInProgress) {
-              bool chalkFinishedBool = state.chalkFinishedBool;
-              bool yourTurnBool = state.yourTurnBool;
-              bool removeAdsBool = state.removeAdsBool;
-
               return buildBottomSheet(
                 settingsBloc: settingsBloc,
                 profileBloc: profileBloc,
                 context: context,
                 state: state,
                 notificationsVisible: true,
-                yourTurnBool: yourTurnBool,
-                chalkFinishedBool: chalkFinishedBool,
-                removeAdsBool: removeAdsBool,
+                yourTurnBool: state.yourTurnBool,
+                chalkFinishedBool: state.chalkFinishedBool,
+                removeAdsBool: state.removeAdsBool,
               );
             } else if (state is SettingsInitial) {
-              bool removeAdsBool = state.removeAdsBool;
-
               return buildBottomSheet(
                 settingsBloc: settingsBloc,
                 profileBloc: profileBloc,
                 context: context,
                 state: state,
                 notificationsVisible: false,
-                removeAdsBool: removeAdsBool,
+                removeAdsBool: state.removeAdsBool,
               );
             }
           },
@@ -69,11 +63,6 @@ class SettingsBottomSheet extends StatelessWidget {
     bool yourTurnBool,
     @required bool removeAdsBool,
   }) {
-    //TODO connect remove ads bool
-    // bool removeAdsBool = false;
-    // if (state is ManangeNotificationsInProgress){
-    //   removeAdsBool = state.removeAdsState;
-    // }
     return Align(
       alignment: Alignment.bottomCenter,
       child: DraggableScrollableSheet(

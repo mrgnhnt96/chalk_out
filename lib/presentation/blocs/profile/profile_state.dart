@@ -4,9 +4,13 @@ part of 'profile_bloc.dart';
 abstract class ProfileState {}
 
 class ProfileInitial extends ProfileState {
+  ProfileInitial();
+}
+
+class ProfileScreenLoaded extends ProfileState {
   final TextEditingController usernameController;
 
-  ProfileInitial({@required this.usernameController});
+  ProfileScreenLoaded({@required this.usernameController});
 }
 
 class EditUsernameInProgress extends ProfileState {}

@@ -7,12 +7,7 @@ part 'participated_event.dart';
 part 'participated_state.dart';
 
 class ParticipatedBloc extends Bloc<ParticipatedEvent, ParticipatedState> {
-  ParticipatedBloc()
-      : super(
-          ParticipatedInitial(),
-        );
-
-  ParticipatedState get initialState => ParticipatedInitial();
+  ParticipatedBloc() : super(ParticipatedInitial());
 
   @override
   Stream<ParticipatedState> mapEventToState(

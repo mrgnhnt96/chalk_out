@@ -39,23 +39,20 @@ class _ParticipatedChalksScreenState extends State<ParticipatedChalksScreen> wit
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ParticipatedBloc(),
-      child: BlocListener<ParticipatedBloc, ParticipatedState>(
-        listener: (context, state) {},
-        child: BlocBuilder<ParticipatedBloc, ParticipatedState>(
-          builder: (context, state) {
-            // ignore: close_sinks
-            final participatedBloc = BlocProvider.of<ParticipatedBloc>(context);
-            if (state is SettingsPageInitial) {
-              return SettingsScreen(
-                participatedBloc: participatedBloc,
-              );
-            }
-            return buildAppBar(
-              context: context,
+      child: BlocBuilder<ParticipatedBloc, ParticipatedState>(
+        builder: (context, state) {
+          // ignore: close_sinks
+          final participatedBloc = BlocProvider.of<ParticipatedBloc>(context);
+          if (state is SettingsPageInitial) {
+            return SettingsScreen(
               participatedBloc: participatedBloc,
             );
-          },
-        ),
+          }
+          return buildAppBar(
+            context: context,
+            participatedBloc: participatedBloc,
+          );
+        },
       ),
     );
   }
