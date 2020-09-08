@@ -9,14 +9,19 @@ class ProfileInitial extends ProfileState {
 
 class ProfileScreenLoaded extends ProfileState {
   final TextEditingController usernameController;
+  final String initials;
 
-  ProfileScreenLoaded({@required this.usernameController});
+  ProfileScreenLoaded({@required this.usernameController, @required this.initials});
 }
 
 class EditUsernameInProgress extends ProfileState {}
 
 class EditUsernameSuccess extends ProfileState {
   final TextEditingController newUsernameController;
+  final String initials;
 
-  EditUsernameSuccess({@required this.newUsernameController});
+  EditUsernameSuccess({
+    @required this.newUsernameController,
+    @required this.initials,
+  });
 }

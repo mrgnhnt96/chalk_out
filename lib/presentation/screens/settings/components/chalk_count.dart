@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ChalkCounter extends StatelessWidget {
+class ChalkCount extends StatelessWidget {
   final String title;
   final int counter;
-  const ChalkCounter({
+  const ChalkCount({
     @required this.title,
     @required this.counter,
     Key key,

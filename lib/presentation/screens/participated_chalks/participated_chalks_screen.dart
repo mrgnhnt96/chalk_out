@@ -1,5 +1,5 @@
 import 'package:chalk_out/presentation/blocs/participated_chalks/participated_bloc.dart';
-import 'package:chalk_out/presentation/screens/settings/settings_screen.dart';
+import 'package:chalk_out/presentation/screens/settings/main_settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -17,7 +17,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   Stream<SettingsState> mapEventToState(
     SettingsEvent event,
   ) async* {
-    if (state is SettingsInitial) if (event is SettingsDropDownPressed) {
+    if (event is SettingsDropDownPressed) {
       yield ManangeNotificationsInProgress(
         chalkFinishedBool: _chalkFinishedBool,
         yourTurnBool: _yourTurnBool,

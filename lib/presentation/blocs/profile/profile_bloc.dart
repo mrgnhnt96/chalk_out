@@ -11,24 +11,29 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc() : super(ProfileInitial());
 
   String username = 'Taylor Hunt';
+  String _initials;
 
-  static TextEditingController _usernameController = TextEditingController();
+  static TextEditingController _usernameController;
 
   @override
   Stream<ProfileState> mapEventToState(
     ProfileEvent event,
   ) async* {
     if (event is ProfileScreenStart) {
-      _usernameController.text = username;
-      yield ProfileScreenLoaded(usernameController: _usernameController);
+      _usernameController = TextEditingController(text: username);
+      _initials = _usernameController.text.toString().substring(0, 2).toUpperCase();
+
+      yield ProfileScreenLoaded(usernameController: _usernameController, initials: _initials);
     }
     if (event is EditUsernamePressed) {
       yield EditUsernameInProgress();
     } else if (event is EditUsernameCompleted) {
-      if (event.newUsername.isNotEmpty) {
-        _usernameController.text = event.newUsername;
-      }
-      yield EditUsernameSuccess(newUsernameController: _usernameController);
+      _usernameController = TextEditingController(text: event.newUsername);
+      _initials = _usernameController.text.toString().substring(0, 2).toUpperCase();
+      // if (event.newUsername.isNotEmpty) {
+      //   print(_usernameController.text);
+      // }
+      yield EditUsernameSuccess(newUsernameController: _usernameController, initials: _initials);
     }
   }
 }
