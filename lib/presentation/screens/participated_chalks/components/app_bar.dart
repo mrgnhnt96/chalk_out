@@ -1,7 +1,7 @@
 import 'package:chalk_out/presentation/blocs/participated_chalks/participated_bloc.dart';
 import 'package:flutter/material.dart';
 
-class MainAppBar extends StatelessWidget {
+class MainAppBar extends StatelessWidget with PreferredSizeWidget {
   const MainAppBar({
     Key key,
     @required this.tabList,
@@ -86,4 +86,8 @@ class MainAppBar extends StatelessWidget {
           body: TabBarView(children: tabList)),
     );
   }
+
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => Size.fromHeight(100);
 }
