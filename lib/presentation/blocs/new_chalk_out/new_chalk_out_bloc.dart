@@ -13,6 +13,8 @@ class NewChalkOutBloc extends Bloc<NewChalkOutEvent, NewChalkOutState> {
   Stream<NewChalkOutState> mapEventToState(
     NewChalkOutEvent event,
   ) async* {
-    // TODO: implement mapEventToState
+    if (event is NewChalkOutClosePressed) {
+      yield NewChalkOutCancelled();
+    }
   }
 }

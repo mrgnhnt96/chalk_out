@@ -24,7 +24,9 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
               child: Center(
                 child: Icon(Icons.add),
               ),
-              onPressed: () {},
+              onPressed: () {
+                participatedBloc.add(NewChalkOutPressed());
+              },
             ),
           ),
           appBar: AppBar(
