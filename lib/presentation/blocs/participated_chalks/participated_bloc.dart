@@ -17,6 +17,8 @@ class ParticipatedBloc extends Bloc<ParticipatedEvent, ParticipatedState> {
       yield SettingsPageInitial();
     } else if (event is SettingCloseButtonPressed) {
       yield ParticipatedInitial();
+    } else if (event is NewChalkOutPressed) {
+      yield NewChalkOutStart();
     }
   }
 }

@@ -6,3 +6,5 @@ abstract class ParticipatedState {}
 class ParticipatedInitial extends ParticipatedState {}
 
 class SettingsPageInitial extends ParticipatedState {}
+
+class NewChalkOutStart extends ParticipatedState {}
