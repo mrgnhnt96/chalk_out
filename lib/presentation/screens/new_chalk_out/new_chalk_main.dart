@@ -7,7 +7,7 @@ import 'new_chalk_out_screen.dart';
 
 class NewChalkMain extends StatelessWidget {
   static const routeName = '/new_chalk_main';
-  static const title = 'new chalk main';
+  static const title = 'Pick a Chalk';
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,18 @@ class NewChalkMain extends StatelessWidget {
           final newChalkOutBloc = BlocProvider.of<NewChalkOutBloc>(context);
           if (state is NewChalkOutCancelled) {
             return ParticipatedChalksScreen();
+          } else if (state is NewRandomWordLoaded) {
+            return NewChalkOutScreen(
+              newChalkOutBloc: newChalkOutBloc,
+              title: title,
+              randomWord: state.randomWord,
+            );
           } else
-            return NewChalkOutScreen(newChalkOutBloc: newChalkOutBloc, title: title);
+            return NewChalkOutScreen(
+              newChalkOutBloc: newChalkOutBloc,
+              title: title,
+              randomWord: '',
+            );
         },
       ),
     );

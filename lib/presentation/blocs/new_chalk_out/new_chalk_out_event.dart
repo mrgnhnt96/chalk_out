@@ -6,3 +6,7 @@ abstract class NewChalkOutEvent {}
 class NewChalkOutClosePressed extends NewChalkOutEvent {
   List<Object> get props => [];
 }
+
+class NewRandomWordPressed extends NewChalkOutEvent {
+  List<Object> get props => [];
+}
