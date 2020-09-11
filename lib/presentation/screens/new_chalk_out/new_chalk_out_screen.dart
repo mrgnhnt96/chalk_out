@@ -39,6 +39,7 @@ class NewChalkOutScreen extends StatelessWidget {
       body: Container(
         width: MediaQuery.of(context).size.width,
         child: Column(
+          mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
@@ -61,6 +62,20 @@ class NewChalkOutScreen extends StatelessWidget {
                 onPressed: () {
                   newChalkOutBloc.add(NewRandomWordPressed());
                 },
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Choose a Category'),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: RaisedButton(
+                onPressed: () {},
+                child: Text('Chalk it!'),
               ),
             ),
           ],
