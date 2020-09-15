@@ -50,7 +50,7 @@ class _ParticipatedChalksScreenState extends State<ParticipatedChalksScreen> wit
               participatedBloc: participatedBloc,
             );
           } else if (state is NewChalkOutStart) {
-            return NewChalkMain();
+            return NewChalkScreenMain();
           }
           return MainAppBar(tabList: tabList, participatedBloc: participatedBloc);
         },

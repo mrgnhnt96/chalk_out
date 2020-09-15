@@ -22,6 +22,10 @@ class NewChalkOutBloc extends Bloc<NewChalkOutEvent, NewChalkOutState> {
         randomWord = element.toString();
       });
       yield NewRandomWordLoaded(randomWord: randomWord);
+    } else if (event is ChalkItPressed) {
+      yield ChalkItFinished(randomWord: event.chalkItWord);
+    } else if (event is CloseShipItPressed) {
+      yield ReselectChalkItWordInProgress(randomWord: event.chalkItWord);
     }
   }
 }

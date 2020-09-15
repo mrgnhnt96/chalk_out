@@ -1,11 +1,12 @@
 import 'package:chalk_out/presentation/blocs/new_chalk_out/new_chalk_out_bloc.dart';
 import 'package:chalk_out/presentation/screens/participated_chalks/participated_chalks_screen.dart';
+import 'package:chalk_out/presentation/screens/ship_it/ship_it_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'new_chalk_out_screen.dart';
 
-class NewChalkMain extends StatelessWidget {
+class NewChalkScreenMain extends StatelessWidget {
   static const routeName = '/new_chalk_main';
   static const title = 'Pick a Chalk';
 
@@ -20,6 +21,17 @@ class NewChalkMain extends StatelessWidget {
           if (state is NewChalkOutCancelled) {
             return ParticipatedChalksScreen();
           } else if (state is NewRandomWordLoaded) {
+            return NewChalkOutScreen(
+              newChalkOutBloc: newChalkOutBloc,
+              title: title,
+              randomWord: state.randomWord,
+            );
+          } else if (state is ChalkItFinished) {
+            return ShipItScreenMain(
+              chalkItWord: state.randomWord,
+              newChalkOutBloc: newChalkOutBloc,
+            );
+          } else if (state is ReselectChalkItWordInProgress) {
             return NewChalkOutScreen(
               newChalkOutBloc: newChalkOutBloc,
               title: title,

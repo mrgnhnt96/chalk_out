@@ -13,3 +13,17 @@ class NewRandomWordLoaded extends NewChalkOutState {
     @required this.randomWord,
   });
 }
+
+class ChalkItFinished extends NewChalkOutState {
+  final String randomWord;
+  ChalkItFinished({
+    @required this.randomWord,
+  });
+}
+
+class ReselectChalkItWordInProgress extends NewChalkOutState {
+  final String randomWord;
+  ReselectChalkItWordInProgress({
+    @required this.randomWord,
+  });
+}

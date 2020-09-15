@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:chalk_out/presentation/blocs/new_chalk_out/new_chalk_out_bloc.dart';
 
+import 'components/category_selection_buttons.dart';
+
 class NewChalkOutScreen extends StatelessWidget {
   const NewChalkOutScreen({
     Key key,
@@ -71,11 +73,19 @@ class NewChalkOutScreen extends StatelessWidget {
                 child: Text('Choose a Category'),
               ),
             ),
+            CategorySelection(),
             Align(
               alignment: Alignment.bottomRight,
-              child: RaisedButton(
-                onPressed: () {},
-                child: Text('Chalk it!'),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RaisedButton(
+                  onPressed: () {
+                    if (randomWord != '') {
+                      newChalkOutBloc.add(ChalkItPressed(chalkItWord: randomWord));
+                    }
+                  },
+                  child: Text('Chalk it!'),
+                ),
               ),
             ),
           ],
