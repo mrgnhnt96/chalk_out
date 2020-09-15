@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class CategoryButton extends StatelessWidget {
   final String title;
+  final Function onPressed;
   const CategoryButton({
     Key key,
-    this.title,
+    @required this.title,
+    @required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -20,7 +22,7 @@ class CategoryButton extends StatelessWidget {
       ),
       child: RaisedButton(
         child: Text(title),
-        onPressed: () {},
+        onPressed: onPressed,
       ),
     );
   }

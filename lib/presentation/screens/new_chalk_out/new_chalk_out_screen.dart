@@ -41,6 +41,7 @@ class NewChalkOutScreen extends StatelessWidget {
       body: Container(
         width: MediaQuery.of(context).size.width,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -73,7 +74,7 @@ class NewChalkOutScreen extends StatelessWidget {
                 child: Text('Choose a Category'),
               ),
             ),
-            CategorySelection(),
+            CategorySelection(newChalkOutBloc: newChalkOutBloc),
             Align(
               alignment: Alignment.bottomRight,
               child: Padding(
