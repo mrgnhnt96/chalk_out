@@ -9,10 +9,16 @@ part 'ship_it_state.dart';
 class ShipItBloc extends Bloc<ShipItEvent, ShipItState> {
   ShipItBloc() : super(ShipItInitial());
 
+  static bool allowFriendsOfFriends = false;
+
   @override
   Stream<ShipItState> mapEventToState(
     ShipItEvent event,
   ) async* {
-    // TODO: implement mapEventToState
+    if (event is ShipItStarted) {
+      yield ShipItToFriendsOfFriendsInitial(allowFriendsOfFriends: allowFriendsOfFriends);
+    } else if (event is ShipItToFriendsOfFriendsPressed) {
+      yield ShipItToFriendsOfFriendsInitial(allowFriendsOfFriends: event.allowFriendsOfFriends);
+    }
   }
 }
