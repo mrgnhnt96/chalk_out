@@ -1,4 +1,5 @@
 import 'package:chalk_out/presentation/blocs/participated_chalks/participated_bloc.dart';
+import 'package:chalk_out/presentation/screens/new_chalk_out/new_chalk_main.dart';
 import 'package:chalk_out/presentation/screens/settings/main_settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,6 +49,8 @@ class _ParticipatedChalksScreenState extends State<ParticipatedChalksScreen> wit
             return SettingsScreen(
               participatedBloc: participatedBloc,
             );
+          } else if (state is NewChalkOutStart) {
+            return NewChalkScreenMain();
           }
           return MainAppBar(tabList: tabList, participatedBloc: participatedBloc);
         },

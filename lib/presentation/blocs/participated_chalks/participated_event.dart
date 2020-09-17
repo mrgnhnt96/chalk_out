@@ -12,3 +12,7 @@ class SettingButtonPressed extends ParticipatedEvent {
 class SettingCloseButtonPressed extends ParticipatedEvent {
   List<Object> get props => [];
 }
+
+class NewChalkOutPressed extends ParticipatedEvent {
+  List<Object> get props => [];
+}

@@ -30,6 +30,7 @@ dependencies:
   bloc: ^6.0.1
   flutter_bloc: ^6.0.1
   draggable_bottom_sheet: ^0.1.1
+  random_words: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -70,3 +71,4 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
