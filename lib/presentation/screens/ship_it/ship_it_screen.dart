@@ -54,16 +54,11 @@ class ShipItScreen extends StatelessWidget {
                 );
               },
               child: Container(
-                // padding: const EdgeInsets.symmetric(
-                //   horizontal: 8,
-                //   vertical: 16,
-                // ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Icon(
                       !allowFriendsOfFriends ? Icons.check_box_outline_blank : Icons.check_box,
-                      // size: 50,
                     ),
                     Text('Allow friends of friends'),
                   ],
