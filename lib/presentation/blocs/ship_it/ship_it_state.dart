@@ -16,3 +16,9 @@ class ShipItToFriendsOfFriendsInitial extends ShipItState {
 
   ShipItToFriendsOfFriendsInitial({@required this.allowFriendsOfFriends});
 }
+
+class AddPlayerInitial extends ShipItState {
+  final List<String> contactList;
+
+  AddPlayerInitial({@required this.contactList});
+}

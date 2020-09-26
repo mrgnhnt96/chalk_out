@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chalk_out/presentation/blocs/new_chalk_out/new_chalk_out_bloc.dart';
 import 'package:chalk_out/presentation/blocs/ship_it/ship_it_bloc.dart';
 
+import 'components/contact_bottom_sheet.dart';
+
 class ShipItScreenMain extends StatelessWidget {
   static const routeName = '/ship_it_main';
   static const title = 'Ship it!';
@@ -33,6 +35,8 @@ class ShipItScreenMain extends StatelessWidget {
               chalkItWord: chalkItWord,
               title: title,
             );
+          } else if (state is AddPlayerInitial) {
+            return ContactBottomSheet(contactList: state.contactList);
           } else {
             return ShipItScreen(
               newChalkOutBloc: newChalkOutBloc,

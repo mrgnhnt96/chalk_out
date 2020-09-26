@@ -10,13 +10,21 @@ class ContactBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        child: ListView.builder(
-          itemCount: contactList.length,
-          itemBuilder: (context, index) {
-            return SelectContactCard(contactName: contactList[index]);
-          },
+    return Scaffold(
+      body: SafeArea(
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            color: Colors.blueGrey,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * .5,
+            child: ListView.builder(
+              itemCount: contactList.length,
+              itemBuilder: (context, index) {
+                return SelectContactCard(contactName: contactList[index]);
+              },
+            ),
+          ),
         ),
       ),
     );

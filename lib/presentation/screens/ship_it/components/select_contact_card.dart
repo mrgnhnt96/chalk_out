@@ -10,9 +10,13 @@ class SelectContactCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.all(8),
       child: Row(
         children: [
           Text(contactName),
+          SizedBox(
+            width: 18,
+          ),
           RaisedButton(
             onPressed: () {},
             child: Text('Invite'),

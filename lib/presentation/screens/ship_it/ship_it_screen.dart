@@ -70,6 +70,7 @@ class ShipItScreen extends StatelessWidget {
                 itemCount: 10,
                 itemBuilder: (context, index) {
                   return ContactShareCard(
+                    shipItBloc: shipItBloc,
                     contactName: '',
                     index: index + 1,
                   );

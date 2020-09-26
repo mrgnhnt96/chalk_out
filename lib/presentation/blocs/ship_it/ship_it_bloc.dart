@@ -229,6 +229,8 @@ class ShipItBloc extends Bloc<ShipItEvent, ShipItState> {
       yield ShipItToFriendsOfFriendsInitial(allowFriendsOfFriends: allowFriendsOfFriends);
     } else if (event is ShipItToFriendsOfFriendsPressed) {
       yield ShipItToFriendsOfFriendsInitial(allowFriendsOfFriends: event.allowFriendsOfFriends);
+    } else if (event is AddPlayerStarted) {
+      yield AddPlayerInitial(contactList: dummyContactList);
     }
   }
 }

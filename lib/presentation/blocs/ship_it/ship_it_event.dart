@@ -10,3 +10,5 @@ class ShipItToFriendsOfFriendsPressed extends ShipItEvent {
 }
 
 class ShipItStarted extends ShipItEvent {}
+
+class AddPlayerStarted extends ShipItEvent {}
