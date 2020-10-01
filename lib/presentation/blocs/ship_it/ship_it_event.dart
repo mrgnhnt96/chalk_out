@@ -12,3 +12,9 @@ class ShipItToFriendsOfFriendsPressed extends ShipItEvent {
 class ShipItStarted extends ShipItEvent {}
 
 class AddPlayerStarted extends ShipItEvent {}
+
+class AddingPlayerPressed extends ShipItEvent {
+  final String playerName;
+
+  AddingPlayerPressed({@required this.playerName});
+}

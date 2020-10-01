@@ -22,3 +22,9 @@ class AddPlayerInitial extends ShipItState {
 
   AddPlayerInitial({@required this.contactList});
 }
+
+class AddPlayerComplete extends ShipItState {
+  final List<String> invitedPlayers;
+
+  AddPlayerComplete({@required this.invitedPlayers});
+}

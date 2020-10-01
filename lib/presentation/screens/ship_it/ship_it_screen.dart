@@ -12,6 +12,7 @@ class ShipItScreen extends StatelessWidget {
     @required this.chalkItWord,
     @required this.title,
     @required this.allowFriendsOfFriends,
+    @required this.invitedPlayers,
   }) : super(key: key);
 
   final NewChalkOutBloc newChalkOutBloc;
@@ -19,6 +20,7 @@ class ShipItScreen extends StatelessWidget {
   final String chalkItWord;
   final String title;
   final bool allowFriendsOfFriends;
+  final List<String> invitedPlayers;
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +69,11 @@ class ShipItScreen extends StatelessWidget {
             ),
             Flexible(
               child: ListView.builder(
-                itemCount: 10,
+                itemCount: (invitedPlayers.length <= 9 ? (invitedPlayers.length == 0 ? 1 : invitedPlayers.length + 1) : 10),
                 itemBuilder: (context, index) {
                   return ContactShareCard(
                     shipItBloc: shipItBloc,
-                    contactName: '',
+                    contactName: (invitedPlayers.length <= index) ? '' : invitedPlayers[index],
                     index: index + 1,
                   );
                 },

@@ -219,6 +219,8 @@ class ShipItBloc extends Bloc<ShipItEvent, ShipItState> {
     '# im dah best'
   ];
 
+  List<String> invitedPlayers = [];
+
   static bool allowFriendsOfFriends = false;
 
   @override
@@ -231,6 +233,10 @@ class ShipItBloc extends Bloc<ShipItEvent, ShipItState> {
       yield ShipItToFriendsOfFriendsInitial(allowFriendsOfFriends: event.allowFriendsOfFriends);
     } else if (event is AddPlayerStarted) {
       yield AddPlayerInitial(contactList: dummyContactList);
+    } else if (event is AddingPlayerPressed) {
+      invitedPlayers.add(event.playerName);
+
+      yield AddPlayerComplete(invitedPlayers: invitedPlayers);
     }
   }
 }
