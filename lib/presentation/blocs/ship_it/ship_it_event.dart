@@ -18,3 +18,9 @@ class AddingPlayerPressed extends ShipItEvent {
 
   AddingPlayerPressed({@required this.playerName});
 }
+
+class RemovePlayerPressed extends ShipItEvent {
+  final int index;
+
+  RemovePlayerPressed({@required this.index});
+}

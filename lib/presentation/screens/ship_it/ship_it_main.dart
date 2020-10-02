@@ -29,7 +29,7 @@ class ShipItScreenMain extends StatelessWidget {
           final shipItBloc = BlocProvider.of<ShipItBloc>(context);
           if (state is ShipItToFriendsOfFriendsInitial) {
             return ShipItScreen(
-              invitedPlayers: [],
+              playerList: [],
               allowFriendsOfFriends: state.allowFriendsOfFriends,
               newChalkOutBloc: newChalkOutBloc,
               shipItBloc: shipItBloc,
@@ -48,11 +48,20 @@ class ShipItScreenMain extends StatelessWidget {
               allowFriendsOfFriends: false,
               shipItBloc: shipItBloc,
               title: title,
-              invitedPlayers: state.invitedPlayers,
+              playerList: state.playerList,
+            );
+          } else if (state is PlayerRemovedComplete) {
+            return ShipItScreen(
+              allowFriendsOfFriends: false,
+              playerList: state.newPlayerList,
+              title: title,
+              shipItBloc: shipItBloc,
+              chalkItWord: chalkItWord,
+              newChalkOutBloc: newChalkOutBloc,
             );
           } else {
             return ShipItScreen(
-              invitedPlayers: [],
+              playerList: [],
               newChalkOutBloc: newChalkOutBloc,
               chalkItWord: '',
               allowFriendsOfFriends: false,

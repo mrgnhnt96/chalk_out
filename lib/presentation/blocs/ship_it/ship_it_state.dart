@@ -24,7 +24,13 @@ class AddPlayerInitial extends ShipItState {
 }
 
 class AddPlayerComplete extends ShipItState {
-  final List<String> invitedPlayers;
+  final List<String> playerList;
 
-  AddPlayerComplete({@required this.invitedPlayers});
+  AddPlayerComplete({@required this.playerList});
+}
+
+class PlayerRemovedComplete extends ShipItState {
+  final List<String> newPlayerList;
+
+  PlayerRemovedComplete({@required this.newPlayerList});
 }

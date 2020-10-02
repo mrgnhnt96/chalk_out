@@ -16,10 +16,11 @@ class ContactShareCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // width: MediaQuery.of(context).size.width * .45,
+      // width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.only(top: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
         children: [
           Text(
             index.toString(),
@@ -29,34 +30,39 @@ class ContactShareCard extends StatelessWidget {
             padding: const EdgeInsets.only(top: 4.0),
             child: Text('/10'),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 8.0, top: contactName.isEmpty ? 0 : 12),
-                child: (contactName.isEmpty)
-                    ? RaisedButton(
-                        onPressed: () {
-                          shipItBloc.add(
-                            AddPlayerStarted(),
-                          );
-                        },
-                        child: Text('Add Player'),
-                      )
-                    : Container(
-                        child: Text(contactName),
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(color: Colors.black),
+          Expanded(
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 8.0, top: contactName.isEmpty ? 0 : 12),
+                  child: (contactName.isEmpty)
+                      ? RaisedButton(
+                          onPressed: () {
+                            shipItBloc.add(
+                              AddPlayerStarted(),
+                            );
+                          },
+                          child: Text('Add Player'),
+                        )
+                      : Container(
+                          child: Text(contactName),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(color: Colors.black),
+                            ),
                           ),
                         ),
-                      ),
-              ),
-              // IconButton(
-              //   icon: Icon(Icons.delete),
-              //   onPressed: () {},
-              // ),
-            ],
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    shipItBloc.add(RemovePlayerPressed(index: index));
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),
