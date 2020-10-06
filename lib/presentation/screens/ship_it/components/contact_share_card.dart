@@ -32,7 +32,6 @@ class ContactShareCard extends StatelessWidget {
             padding: const EdgeInsets.only(top: 4.0),
             child: Text(
               '/10',
-              // style: TextStyle(),
             ),
           ),
           Expanded(
@@ -41,7 +40,7 @@ class ContactShareCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 8.0, top: contactName.isEmpty ? 0 : 12),
+                  padding: EdgeInsets.only(left: 8.0, bottom: contactName.isEmpty ? 0 : 8),
                   child: (contactName.isEmpty)
                       ? RaisedButton(
                           onPressed: () {
@@ -63,7 +62,10 @@ class ContactShareCard extends StatelessWidget {
                 (contactName.isEmpty)
                     ? Container()
                     : IconButton(
-                        icon: Icon(Icons.delete),
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
                         onPressed: () {
                           shipItBloc.add(RemovePlayerPressed(index: index));
                         },

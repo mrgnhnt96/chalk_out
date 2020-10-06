@@ -223,18 +223,23 @@ class ShipItBloc extends Bloc<ShipItEvent, ShipItState> {
 
   static bool allowFriendsOfFriends = false;
 
+  static bool totalRequiredPlayersBool = false;
+
   @override
   Stream<ShipItState> mapEventToState(
     ShipItEvent event,
   ) async* {
+    totalRequiredPlayersBool = playerList.length >= 4;
     if (event is ShipItStarted) {
       yield ShipItToFriendsOfFriendsInitial(
         playerList: playerList,
         allowFriendsOfFriends: allowFriendsOfFriends,
+        totalRequiredPlayersBool: totalRequiredPlayersBool,
       );
     } else if (event is ShipItToFriendsOfFriendsPressed) {
       allowFriendsOfFriends = event.allowFriendsOfFriends;
       yield ShipItToFriendsOfFriendsInitial(
+        totalRequiredPlayersBool: totalRequiredPlayersBool,
         playerList: playerList,
         allowFriendsOfFriends: event.allowFriendsOfFriends,
       );
@@ -242,14 +247,18 @@ class ShipItBloc extends Bloc<ShipItEvent, ShipItState> {
       yield AddPlayerInitial(contactList: dummyContactList);
     } else if (event is AddingPlayerPressed) {
       playerList.add(event.playerName);
+      totalRequiredPlayersBool = playerList.length >= 4;
 
       yield AddPlayerComplete(
+        totalRequiredPlayersBool: totalRequiredPlayersBool,
         playerList: playerList,
         allowFriendsOfFriends: allowFriendsOfFriends,
       );
     } else if (event is RemovePlayerPressed) {
       playerList.removeAt(event.index - 1);
+      totalRequiredPlayersBool = playerList.length >= 4;
       yield PlayerRemovedComplete(
+        totalRequiredPlayersBool: totalRequiredPlayersBool,
         newPlayerList: playerList,
         allowFriendsOfFriends: allowFriendsOfFriends,
       );

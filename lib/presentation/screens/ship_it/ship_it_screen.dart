@@ -13,6 +13,7 @@ class ShipItScreen extends StatelessWidget {
     @required this.title,
     @required this.allowFriendsOfFriends,
     @required this.playerList,
+    @required this.totalRequiredPlayersBool,
   }) : super(key: key);
 
   final NewChalkOutBloc newChalkOutBloc;
@@ -20,6 +21,7 @@ class ShipItScreen extends StatelessWidget {
   final String chalkItWord;
   final String title;
   final bool allowFriendsOfFriends;
+  final bool totalRequiredPlayersBool;
   final List<String> playerList;
 
   @override
@@ -72,7 +74,7 @@ class ShipItScreen extends StatelessWidget {
                 itemCount: (playerList.length <= 9 ? (playerList.length == 0 ? 1 : playerList.length + 1) : 10),
                 itemBuilder: (context, index) {
                   return ContactShareCard(
-                    totalRequiredPlayersBool: playerList.length >= 4,
+                    totalRequiredPlayersBool: totalRequiredPlayersBool,
                     shipItBloc: shipItBloc,
                     contactName: (playerList.length <= index) ? '' : playerList[index],
                     index: index + 1,
@@ -80,15 +82,28 @@ class ShipItScreen extends StatelessWidget {
                 },
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                print('Local Game');
-              },
-              child: Container(
-                color: Colors.transparent,
-                padding: EdgeInsets.all(16),
-                child: Text('Continue Locally'),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    print('Local Game');
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    padding: EdgeInsets.all(16),
+                    child: Text('Continue Locally'),
+                  ),
+                ),
+                totalRequiredPlayersBool
+                    ? Container(
+                        child: RaisedButton(
+                          child: Text('Ship it!'),
+                          onPressed: () {},
+                        ),
+                      )
+                    : Container(),
+              ],
             ),
           ],
         ),

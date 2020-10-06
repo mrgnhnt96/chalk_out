@@ -29,6 +29,7 @@ class ShipItScreenMain extends StatelessWidget {
           final shipItBloc = BlocProvider.of<ShipItBloc>(context);
           if (state is ShipItToFriendsOfFriendsInitial) {
             return ShipItScreen(
+              totalRequiredPlayersBool: state.totalRequiredPlayersBool,
               playerList: state.playerList,
               allowFriendsOfFriends: state.allowFriendsOfFriends,
               newChalkOutBloc: newChalkOutBloc,
@@ -43,6 +44,7 @@ class ShipItScreenMain extends StatelessWidget {
             );
           } else if (state is AddPlayerComplete) {
             return ShipItScreen(
+              totalRequiredPlayersBool: state.totalRequiredPlayersBool,
               newChalkOutBloc: newChalkOutBloc,
               chalkItWord: '',
               allowFriendsOfFriends: state.allowFriendsOfFriends,
@@ -52,6 +54,7 @@ class ShipItScreenMain extends StatelessWidget {
             );
           } else if (state is PlayerRemovedComplete) {
             return ShipItScreen(
+              totalRequiredPlayersBool: state.totalRequiredPlayersBool,
               allowFriendsOfFriends: state.allowFriendsOfFriends,
               playerList: state.newPlayerList,
               title: title,
@@ -61,6 +64,7 @@ class ShipItScreenMain extends StatelessWidget {
             );
           } else {
             return ShipItScreen(
+              totalRequiredPlayersBool: false,
               playerList: [],
               newChalkOutBloc: newChalkOutBloc,
               chalkItWord: '',
