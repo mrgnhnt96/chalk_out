@@ -228,18 +228,31 @@ class ShipItBloc extends Bloc<ShipItEvent, ShipItState> {
     ShipItEvent event,
   ) async* {
     if (event is ShipItStarted) {
-      yield ShipItToFriendsOfFriendsInitial(allowFriendsOfFriends: allowFriendsOfFriends);
+      yield ShipItToFriendsOfFriendsInitial(
+        playerList: playerList,
+        allowFriendsOfFriends: allowFriendsOfFriends,
+      );
     } else if (event is ShipItToFriendsOfFriendsPressed) {
-      yield ShipItToFriendsOfFriendsInitial(allowFriendsOfFriends: event.allowFriendsOfFriends);
+      allowFriendsOfFriends = event.allowFriendsOfFriends;
+      yield ShipItToFriendsOfFriendsInitial(
+        playerList: playerList,
+        allowFriendsOfFriends: event.allowFriendsOfFriends,
+      );
     } else if (event is AddPlayerStarted) {
       yield AddPlayerInitial(contactList: dummyContactList);
     } else if (event is AddingPlayerPressed) {
       playerList.add(event.playerName);
 
-      yield AddPlayerComplete(playerList: playerList);
+      yield AddPlayerComplete(
+        playerList: playerList,
+        allowFriendsOfFriends: allowFriendsOfFriends,
+      );
     } else if (event is RemovePlayerPressed) {
       playerList.removeAt(event.index - 1);
-      yield PlayerRemovedComplete(newPlayerList: playerList);
+      yield PlayerRemovedComplete(
+        newPlayerList: playerList,
+        allowFriendsOfFriends: allowFriendsOfFriends,
+      );
     }
   }
 }

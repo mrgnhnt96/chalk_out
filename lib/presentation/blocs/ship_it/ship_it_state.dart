@@ -13,8 +13,9 @@ class ShareChalkInitial extends ShipItState {
 
 class ShipItToFriendsOfFriendsInitial extends ShipItState {
   final bool allowFriendsOfFriends;
+  final List<String> playerList;
 
-  ShipItToFriendsOfFriendsInitial({@required this.allowFriendsOfFriends});
+  ShipItToFriendsOfFriendsInitial({@required this.playerList, @required this.allowFriendsOfFriends});
 }
 
 class AddPlayerInitial extends ShipItState {
@@ -24,13 +25,15 @@ class AddPlayerInitial extends ShipItState {
 }
 
 class AddPlayerComplete extends ShipItState {
+  final bool allowFriendsOfFriends;
   final List<String> playerList;
 
-  AddPlayerComplete({@required this.playerList});
+  AddPlayerComplete({@required this.playerList, @required this.allowFriendsOfFriends});
 }
 
 class PlayerRemovedComplete extends ShipItState {
+  final bool allowFriendsOfFriends;
   final List<String> newPlayerList;
 
-  PlayerRemovedComplete({@required this.newPlayerList});
+  PlayerRemovedComplete({@required this.newPlayerList, @required this.allowFriendsOfFriends});
 }

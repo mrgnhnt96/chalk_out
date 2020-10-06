@@ -55,12 +55,14 @@ class ContactShareCard extends StatelessWidget {
                           ),
                         ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () {
-                    shipItBloc.add(RemovePlayerPressed(index: index));
-                  },
-                ),
+                (contactName.isEmpty)
+                    ? Container()
+                    : IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          shipItBloc.add(RemovePlayerPressed(index: index));
+                        },
+                      ),
               ],
             ),
           ),
