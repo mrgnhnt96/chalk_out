@@ -72,6 +72,7 @@ class ShipItScreen extends StatelessWidget {
                 itemCount: (playerList.length <= 9 ? (playerList.length == 0 ? 1 : playerList.length + 1) : 10),
                 itemBuilder: (context, index) {
                   return ContactShareCard(
+                    totalRequiredPlayersBool: playerList.length >= 4,
                     shipItBloc: shipItBloc,
                     contactName: (playerList.length <= index) ? '' : playerList[index],
                     index: index + 1,

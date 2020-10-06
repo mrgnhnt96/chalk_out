@@ -5,6 +5,7 @@ import 'package:chalk_out/presentation/blocs/ship_it/ship_it_bloc.dart';
 class ContactShareCard extends StatelessWidget {
   const ContactShareCard({
     Key key,
+    @required this.totalRequiredPlayersBool,
     @required this.contactName,
     @required this.index,
     @required this.shipItBloc,
@@ -12,6 +13,7 @@ class ContactShareCard extends StatelessWidget {
   final String contactName;
   final int index;
   final ShipItBloc shipItBloc;
+  final bool totalRequiredPlayersBool;
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +26,14 @@ class ContactShareCard extends StatelessWidget {
         children: [
           Text(
             index.toString(),
-            style: TextStyle(fontSize: 30),
+            style: TextStyle(fontSize: 30, color: (totalRequiredPlayersBool) ? Colors.black : Colors.red),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 4.0),
-            child: Text('/10'),
+            child: Text(
+              '/10',
+              // style: TextStyle(),
+            ),
           ),
           Expanded(
             child: Row(
