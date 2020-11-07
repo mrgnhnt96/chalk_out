@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 import 'package:random_words/random_words.dart';
 
 part 'new_chalk_out_event.dart';
 part 'new_chalk_out_state.dart';
 
+@injectable
 class NewChalkOutBloc extends Bloc<NewChalkOutEvent, NewChalkOutState> {
   NewChalkOutBloc() : super(NewChalkOutInitial());
 

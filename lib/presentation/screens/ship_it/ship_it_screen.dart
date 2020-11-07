@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 
 import 'package:chalk_out/presentation/blocs/new_chalk_out/new_chalk_out_bloc.dart';
 import 'package:chalk_out/presentation/blocs/ship_it/ship_it_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ShipItScreen extends StatelessWidget {
   const ShipItScreen({
     Key key,
-    @required this.newChalkOutBloc,
-    @required this.shipItBloc,
     @required this.chalkItWord,
     @required this.title,
     @required this.allowFriendsOfFriends,
@@ -16,8 +15,6 @@ class ShipItScreen extends StatelessWidget {
     @required this.totalRequiredPlayersBool,
   }) : super(key: key);
 
-  final NewChalkOutBloc newChalkOutBloc;
-  final ShipItBloc shipItBloc;
   final String chalkItWord;
   final String title;
   final bool allowFriendsOfFriends;
@@ -32,9 +29,9 @@ class ShipItScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.close),
             onPressed: () {
-              newChalkOutBloc.add(
-                CloseShipItPressed(chalkItWord: chalkItWord),
-              );
+              context.bloc<NewChalkOutBloc>().add(
+                    CloseShipItPressed(chalkItWord: chalkItWord),
+                  );
             },
           ),
         ],
@@ -53,9 +50,10 @@ class ShipItScreen extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                shipItBloc.add(
-                  ShipItToFriendsOfFriendsPressed(allowFriendsOfFriends: !allowFriendsOfFriends),
-                );
+                context.bloc<ShipItBloc>()
+                  ..add(
+                    ShipItToFriendsOfFriendsPressed(allowFriendsOfFriends: !allowFriendsOfFriends),
+                  );
               },
               child: Container(
                 child: Row(
@@ -75,7 +73,6 @@ class ShipItScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return ContactShareCard(
                     totalRequiredPlayersBool: totalRequiredPlayersBool,
-                    shipItBloc: shipItBloc,
                     contactName: (playerList.length <= index) ? '' : playerList[index],
                     index: index + 1,
                   );

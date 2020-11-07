@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:chalk_out/presentation/blocs/ship_it/ship_it_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SelectContactCard extends StatelessWidget {
   const SelectContactCard({
     Key key,
     @required this.contactName,
-    @required this.shipItBloc,
   }) : super(key: key);
   final String contactName;
-  final ShipItBloc shipItBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +28,10 @@ class SelectContactCard extends StatelessWidget {
               ),
               RaisedButton(
                 onPressed: () {
-                  shipItBloc.add(
-                    AddingPlayerPressed(playerName: contactName),
-                  );
+                  context.bloc<ShipItBloc>()
+                    ..add(
+                      AddingPlayerPressed(playerName: contactName),
+                    );
                 },
                 child: Text('Invite'),
               ),

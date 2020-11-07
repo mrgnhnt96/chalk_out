@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:chalk_out/presentation/blocs/ship_it/ship_it_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ContactShareCard extends StatelessWidget {
   const ContactShareCard({
@@ -8,11 +9,9 @@ class ContactShareCard extends StatelessWidget {
     @required this.totalRequiredPlayersBool,
     @required this.contactName,
     @required this.index,
-    @required this.shipItBloc,
   }) : super(key: key);
   final String contactName;
   final int index;
-  final ShipItBloc shipItBloc;
   final bool totalRequiredPlayersBool;
 
   @override
@@ -44,9 +43,10 @@ class ContactShareCard extends StatelessWidget {
                   child: (contactName.isEmpty)
                       ? RaisedButton(
                           onPressed: () {
-                            shipItBloc.add(
-                              AddPlayerStarted(),
-                            );
+                            context.bloc<ShipItBloc>()
+                              ..add(
+                                AddPlayerStarted(),
+                              );
                           },
                           child: Text('Add Player'),
                         )
@@ -67,7 +67,7 @@ class ContactShareCard extends StatelessWidget {
                           color: Colors.red,
                         ),
                         onPressed: () {
-                          shipItBloc.add(RemovePlayerPressed(index: index));
+                          context.bloc<ShipItBloc>()..add(RemovePlayerPressed(index: index));
                         },
                       ),
               ],

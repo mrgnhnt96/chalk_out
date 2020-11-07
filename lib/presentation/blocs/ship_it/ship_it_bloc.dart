@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
 part 'ship_it_event.dart';
 part 'ship_it_state.dart';
 
+@injectable
 class ShipItBloc extends Bloc<ShipItEvent, ShipItState> {
   ShipItBloc() : super(ShipItInitial());
 
@@ -225,24 +227,22 @@ class ShipItBloc extends Bloc<ShipItEvent, ShipItState> {
 
   static bool totalRequiredPlayersBool = false;
 
+  ShipItToFriendsOfFriendsInitial get shipItToFriendsOfFriendsInitial => ShipItToFriendsOfFriendsInitial(
+        playerList: playerList,
+        allowFriendsOfFriends: allowFriendsOfFriends,
+        totalRequiredPlayersBool: totalRequiredPlayersBool,
+      );
+
   @override
   Stream<ShipItState> mapEventToState(
     ShipItEvent event,
   ) async* {
     totalRequiredPlayersBool = playerList.length >= 4;
     if (event is ShipItStarted) {
-      yield ShipItToFriendsOfFriendsInitial(
-        playerList: playerList,
-        allowFriendsOfFriends: allowFriendsOfFriends,
-        totalRequiredPlayersBool: totalRequiredPlayersBool,
-      );
+      yield shipItToFriendsOfFriendsInitial;
     } else if (event is ShipItToFriendsOfFriendsPressed) {
       allowFriendsOfFriends = event.allowFriendsOfFriends;
-      yield ShipItToFriendsOfFriendsInitial(
-        totalRequiredPlayersBool: totalRequiredPlayersBool,
-        playerList: playerList,
-        allowFriendsOfFriends: event.allowFriendsOfFriends,
-      );
+      yield shipItToFriendsOfFriendsInitial;
     } else if (event is AddPlayerStarted) {
       yield AddPlayerInitial(contactList: dummyContactList);
     } else if (event is AddingPlayerPressed) {

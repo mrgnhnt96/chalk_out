@@ -1,16 +1,12 @@
-import 'package:flutter/material.dart';
-
-import 'package:chalk_out/presentation/blocs/ship_it/ship_it_bloc.dart';
 import 'package:chalk_out/presentation/screens/ship_it/components/select_contact_card.dart';
+import 'package:flutter/material.dart';
 
 class ContactBottomSheet extends StatelessWidget {
   const ContactBottomSheet({
     Key key,
     @required this.contactList,
-    @required this.shipItBloc,
   }) : super(key: key);
   final List<String> contactList;
-  final ShipItBloc shipItBloc;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +29,6 @@ class ContactBottomSheet extends StatelessWidget {
               itemBuilder: (context, index) {
                 return SelectContactCard(
                   contactName: contactList[index],
-                  shipItBloc: shipItBloc,
                 );
               },
             ),
