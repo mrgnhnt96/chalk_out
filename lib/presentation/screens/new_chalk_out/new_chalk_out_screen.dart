@@ -16,6 +16,7 @@ class NewChalkOutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: close_sinks
     NewChalkOutBloc newChalkOutBloc = context.bloc<NewChalkOutBloc>();
     return Scaffold(
       appBar: AppBar(

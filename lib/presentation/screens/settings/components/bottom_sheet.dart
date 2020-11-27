@@ -23,6 +23,7 @@ class SettingsBottomSheet extends StatelessWidget {
       child: BlocListener<SettingsBloc, SettingsState>(
         listener: (context, state) {},
         child: BlocBuilder<SettingsBloc, SettingsState>(
+          // ignore: missing_return
           builder: (context, state) {
             // ignore: close_sinks
             final settingsBloc = BlocProvider.of<SettingsBloc>(context);

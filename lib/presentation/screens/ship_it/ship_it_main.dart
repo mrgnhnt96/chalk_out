@@ -7,7 +7,7 @@ import 'package:chalk_out/presentation/blocs/ship_it/ship_it_bloc.dart';
 
 import 'components/contact_bottom_sheet.dart';
 
-class ShipItScreenMain extends StatelessWidget {
+class ShipItScreenMain extends StatefulWidget {
   const ShipItScreenMain({
     Key key,
     @required this.newChalkOutBloc,
@@ -21,9 +21,23 @@ class ShipItScreenMain extends StatelessWidget {
   final NewChalkOutBloc newChalkOutBloc;
 
   @override
+  _ShipItScreenMainState createState() => _ShipItScreenMainState();
+}
+
+class _ShipItScreenMainState extends State<ShipItScreenMain> {
+  // ignore: close_sinks
+  ShipItBloc shipItBloc;
+
+  @override
+  void initState() {
+    shipItBloc = ShipItBloc()..add(ShipItStarted());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ShipItBloc()..add(ShipItStarted()),
+      create: (context) => shipItBloc,
       child: BlocBuilder<ShipItBloc, ShipItState>(
         builder: (context, state) {
           if (state is ShipItToFriendsOfFriendsInitial) {
@@ -31,8 +45,8 @@ class ShipItScreenMain extends StatelessWidget {
               totalRequiredPlayersBool: state.totalRequiredPlayersBool,
               playerList: state.playerList,
               allowFriendsOfFriends: state.allowFriendsOfFriends,
-              chalkItWord: chalkItWord,
-              title: title,
+              chalkItWord: widget.chalkItWord,
+              title: ShipItScreenMain.title,
             );
           } else if (state is AddPlayerInitial) {
             return ContactBottomSheet(
@@ -43,7 +57,7 @@ class ShipItScreenMain extends StatelessWidget {
               totalRequiredPlayersBool: state.totalRequiredPlayersBool,
               chalkItWord: '',
               allowFriendsOfFriends: state.allowFriendsOfFriends,
-              title: title,
+              title: ShipItScreenMain.title,
               playerList: state.playerList,
             );
           } else if (state is PlayerRemovedComplete) {
@@ -51,8 +65,8 @@ class ShipItScreenMain extends StatelessWidget {
               totalRequiredPlayersBool: state.totalRequiredPlayersBool,
               allowFriendsOfFriends: state.allowFriendsOfFriends,
               playerList: state.newPlayerList,
-              title: title,
-              chalkItWord: chalkItWord,
+              title: ShipItScreenMain.title,
+              chalkItWord: widget.chalkItWord,
             );
           } else {
             return ShipItScreen(
@@ -60,7 +74,7 @@ class ShipItScreenMain extends StatelessWidget {
               playerList: [],
               chalkItWord: '',
               allowFriendsOfFriends: false,
-              title: title,
+              title: ShipItScreenMain.title,
             );
           }
         },
