@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
 part 'participated_event.dart';
 part 'participated_state.dart';
 
+@injectable
 class ParticipatedBloc extends Bloc<ParticipatedEvent, ParticipatedState> {
   ParticipatedBloc() : super(ParticipatedInitial());
 

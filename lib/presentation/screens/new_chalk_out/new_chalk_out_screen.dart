@@ -1,30 +1,30 @@
-import 'package:flutter/material.dart';
-
 import 'package:chalk_out/presentation/blocs/new_chalk_out/new_chalk_out_bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'components/category_selection_buttons.dart';
 
 class NewChalkOutScreen extends StatelessWidget {
   const NewChalkOutScreen({
     Key key,
-    @required this.newChalkOutBloc,
     @required this.title,
     @required this.randomWord,
   }) : super(key: key);
 
-  final NewChalkOutBloc newChalkOutBloc;
   final String title;
   final String randomWord;
 
   @override
   Widget build(BuildContext context) {
+    // ignore: close_sinks
+    NewChalkOutBloc newChalkOutBloc = context.bloc<NewChalkOutBloc>();
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
             icon: Icon(Icons.close),
             onPressed: () {
-              newChalkOutBloc.add(NewChalkOutClosePressed());
+              context.bloc<NewChalkOutBloc>().add(NewChalkOutClosePressed());
             },
           ),
         ],
@@ -63,7 +63,7 @@ class NewChalkOutScreen extends StatelessWidget {
               child: RaisedButton(
                 child: Text('Random'),
                 onPressed: () {
-                  newChalkOutBloc.add(NewRandomWordPressed());
+                  context.bloc<NewChalkOutBloc>().add(NewRandomWordPressed());
                 },
               ),
             ),
@@ -82,7 +82,7 @@ class NewChalkOutScreen extends StatelessWidget {
                 child: RaisedButton(
                   onPressed: () {
                     if (randomWord != '') {
-                      newChalkOutBloc.add(ChalkItPressed(chalkItWord: randomWord));
+                      context.bloc<NewChalkOutBloc>().add(ChalkItPressed(chalkItWord: randomWord));
                     }
                   },
                   child: Text('Chalk it!'),

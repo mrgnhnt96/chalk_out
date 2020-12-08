@@ -22,7 +22,6 @@ class NewChalkScreenMain extends StatelessWidget {
             return ParticipatedChalksScreen();
           } else if (state is NewRandomWordLoaded) {
             return NewChalkOutScreen(
-              newChalkOutBloc: newChalkOutBloc,
               title: title,
               randomWord: state.randomWord,
             );
@@ -33,13 +32,11 @@ class NewChalkScreenMain extends StatelessWidget {
             );
           } else if (state is ReselectChalkItWordInProgress) {
             return NewChalkOutScreen(
-              newChalkOutBloc: newChalkOutBloc,
               title: title,
               randomWord: state.randomWord,
             );
           } else
             return NewChalkOutScreen(
-              newChalkOutBloc: newChalkOutBloc,
               title: title,
               randomWord: '',
             );
