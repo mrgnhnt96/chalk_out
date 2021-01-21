@@ -17,14 +17,14 @@ class NewChalkOutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ignore: close_sinks
-    NewChalkOutBloc newChalkOutBloc = context.bloc<NewChalkOutBloc>();
+    NewChalkOutBloc newChalkOutBloc = context.read<NewChalkOutBloc>();
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
             icon: Icon(Icons.close),
             onPressed: () {
-              context.bloc<NewChalkOutBloc>().add(NewChalkOutClosePressed());
+              context.read<NewChalkOutBloc>().add(NewChalkOutClosePressed());
             },
           ),
         ],
@@ -63,7 +63,7 @@ class NewChalkOutScreen extends StatelessWidget {
               child: RaisedButton(
                 child: Text('Random'),
                 onPressed: () {
-                  context.bloc<NewChalkOutBloc>().add(NewRandomWordPressed());
+                  context.read<NewChalkOutBloc>().add(NewRandomWordPressed());
                 },
               ),
             ),
@@ -82,7 +82,7 @@ class NewChalkOutScreen extends StatelessWidget {
                 child: RaisedButton(
                   onPressed: () {
                     if (randomWord != '') {
-                      context.bloc<NewChalkOutBloc>().add(ChalkItPressed(chalkItWord: randomWord));
+                      context.read<NewChalkOutBloc>().add(ChalkItPressed(chalkItWord: randomWord));
                     }
                   },
                   child: Text('Chalk it!'),

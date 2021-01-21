@@ -43,7 +43,7 @@ class ContactShareCard extends StatelessWidget {
                   child: (contactName.isEmpty)
                       ? RaisedButton(
                           onPressed: () {
-                            context.bloc<ShipItBloc>()
+                            context.read<ShipItBloc>()
                               ..add(
                                 AddPlayerStarted(),
                               );
@@ -67,7 +67,7 @@ class ContactShareCard extends StatelessWidget {
                           color: Colors.red,
                         ),
                         onPressed: () {
-                          context.bloc<ShipItBloc>()..add(RemovePlayerPressed(index: index));
+                          context.read<ShipItBloc>()..add(RemovePlayerPressed(index: index));
                         },
                       ),
               ],

@@ -28,7 +28,7 @@ class SelectContactCard extends StatelessWidget {
               ),
               RaisedButton(
                 onPressed: () {
-                  context.bloc<ShipItBloc>()
+                  context.read<ShipItBloc>()
                     ..add(
                       AddingPlayerPressed(playerName: contactName),
                     );

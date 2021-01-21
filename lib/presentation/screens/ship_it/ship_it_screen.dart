@@ -29,7 +29,7 @@ class ShipItScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.close),
             onPressed: () {
-              context.bloc<NewChalkOutBloc>().add(
+              context.read<NewChalkOutBloc>().add(
                     CloseShipItPressed(chalkItWord: chalkItWord),
                   );
             },
@@ -50,7 +50,7 @@ class ShipItScreen extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                context.bloc<ShipItBloc>()
+                context.read<ShipItBloc>()
                   ..add(
                     ShipItToFriendsOfFriendsPressed(allowFriendsOfFriends: !allowFriendsOfFriends),
                   );
