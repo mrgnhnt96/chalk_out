@@ -94,7 +94,7 @@ class ShipItScreen extends StatelessWidget {
                 ),
                 totalRequiredPlayersBool
                     ? Container(
-                        child: RaisedButton(
+                        child: ElevatedButton(
                           child: Text('Ship it!'),
                           onPressed: () {},
                         ),
