@@ -41,7 +41,7 @@ class ContactShareCard extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 8.0, bottom: contactName.isEmpty ? 0 : 8),
                   child: (contactName.isEmpty)
-                      ? RaisedButton(
+                      ? ElevatedButton(
                           onPressed: () {
                             context.bloc<ShipItBloc>()
                               ..add(

@@ -26,7 +26,7 @@ class SelectContactCard extends StatelessWidget {
               SizedBox(
                 width: 18,
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   context.bloc<ShipItBloc>()
                     ..add(

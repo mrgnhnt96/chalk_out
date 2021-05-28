@@ -60,7 +60,7 @@ class NewChalkOutScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: RaisedButton(
+              child: ElevatedButton(
                 child: Text('Random'),
                 onPressed: () {
                   context.bloc<NewChalkOutBloc>().add(NewRandomWordPressed());
@@ -79,7 +79,7 @@ class NewChalkOutScreen extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: RaisedButton(
+                child: ElevatedButton(
                   onPressed: () {
                     if (randomWord != '') {
                       context.bloc<NewChalkOutBloc>().add(ChalkItPressed(chalkItWord: randomWord));

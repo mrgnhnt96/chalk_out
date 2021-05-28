@@ -20,7 +20,7 @@ class CategoryButton extends StatelessWidget {
         horizontal: 6,
         vertical: 2,
       ),
-      child: RaisedButton(
+      child: ElevatedButton(
         child: Text(title),
         onPressed: onPressed,
       ),
