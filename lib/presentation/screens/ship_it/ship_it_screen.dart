@@ -52,17 +52,22 @@ class ShipItScreen extends StatelessWidget {
               onTap: () {
                 context.bloc<ShipItBloc>()
                   ..add(
-                    ShipItToFriendsOfFriendsPressed(allowFriendsOfFriends: !allowFriendsOfFriends),
+                    ShipItToFriendsOfFriendsPressed(
+                      allowFriendsOfFriends: !allowFriendsOfFriends,
+                    ),
                   );
               },
               child: Container(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    Text('Allow friends of friends'),
+                    SizedBox(
+                      width: 20,
+                    ),
                     Icon(
                       !allowFriendsOfFriends ? Icons.check_box_outline_blank : Icons.check_box,
                     ),
-                    Text('Allow friends of friends'),
                   ],
                 ),
               ),
