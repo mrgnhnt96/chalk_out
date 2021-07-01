@@ -1,3 +1,4 @@
+import 'package:chalk_out/presentation/screens/game_start/main_start_screen.dart';
 import 'package:chalk_out/presentation/screens/ship_it/components/contact_share_card.dart';
 import 'package:flutter/material.dart';
 
@@ -101,7 +102,11 @@ class ShipItScreen extends StatelessWidget {
                     ? Container(
                         child: ElevatedButton(
                           child: Text('Ship it!'),
-                          onPressed: () {},
+                          onPressed: () {
+                            MainStartScreen(
+                              chalkItWord: chalkItWord,
+                            );
+                          },
                         ),
                       )
                     : Container(),
